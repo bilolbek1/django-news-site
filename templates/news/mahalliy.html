@@ -1,0 +1,20 @@
+{% extends 'news/base.html' %}
+{% load static %}
+{% block content %}
+
+    {% for ml in mahalliy %} {# ml --> mahalliylocal #}
+        <div style="margin-bottom: 35px" class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <a href="{% url 'news_detail' ml.pk %}"> <img style="width: 100%" src="{{ ml.image.url }}"> </a>
+                </div>
+                <div class="col-sm-8">
+                    <a href="{% url 'news_detail' ml.pk %}"><h2 >{{ ml.title|truncatewords:6 }}</h2></a>
+                    <br>
+                    <h4>{{ ml.body|truncatewords:35 }}</h4>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock content %}

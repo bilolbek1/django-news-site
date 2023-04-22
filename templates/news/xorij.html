@@ -1,0 +1,20 @@
+{% extends 'news/base.html' %}
+{% load static %}
+{% block content %}
+
+    {% for xj in xorij %} {# xj --> xorij #}
+        <div style="margin-bottom: 35px" class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <a href="{% url 'news_detail' xj.pk %}"> <img style="width: 100%" src="{{ xj.image.url }}"> </a>
+                </div>
+                <div class="col-sm-8">
+                    <a href="{% url 'news_detail' xj.pk %}"><h2 >{{ xj.title|truncatewords:7 }}</h2></a>
+                    <br>
+                    <h4>{{ xj.body|truncatewords:35 }}</h4>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends 'news/base.html' %}
+{% load static %}
+{% block content %}
+    
+    <span class="detail" style="text-align: center">
+        <h1>{{ object.title }}</h1>
+        <img src="{{ object.image.url }}" alt=""style="margin-bottom: 50px; width: 100%">
+        <p style="font-family: sans-serif; font-size: 21px; font-weight: 600" >{{ object.body }}</p>
+        <div class="time_icon" style="display: flex; justify-content:center; margin-top: 40px; margin-bottom: 30px">
+            <i class="fa-solid fa-calendar-days fa-xl" style="position: relative; top: 19px; right: 15px; color: darkblue"></i>
+            <h4>:   {{ object.publish_time }}</h4>
+        </div>
+   </span>
+    
+{% endblock content %}
