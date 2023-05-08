@@ -1,0 +1,61 @@
+<style>
+
+.title{
+    text-align: center;
+    margin: 20px;
+}
+.imegeloo{
+    width: 30vw;
+    height: 25vw;
+    object-fit: cover;
+    object-position: center center;
+}
+.result{
+    background-color: #BBD6B8;
+    width: 65vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 30px;
+    position: relative;
+    left: 3vw;
+}
+.text{
+    padding: 20px;
+}
+.text h1{
+    font-size: 1.8vw;
+    font-family: sans-serif;
+    font-weight: 600;
+}
+.text p{
+    font-size: 1.1vw;
+    margin-top: 30px;
+}
+
+
+
+
+
+</style>
+{% extends 'news/base.html' %}
+{% load static %}
+{% load hitcount_tags %}
+{% block content %}
+    <h1 class="title">Qidiruv natijalari</h1>
+    {% for i in search %}
+        <div class="result">
+            <div class="img">
+                <a href="{% url 'news_detail' i.id %}"><img class="imegeloo" src="{{ i.image.url }}"></a>
+            </div>
+            <div class="text">
+                <h1> <a href="{% url 'news_detail' i.pk %}">{{ i.title }}</a></h1>
+                <p>{{ i.body|truncatewords:30 }}</p>
+                <h4 style="position: relative; text-align: right; top: 3vw"><i class="fa-sharp fa-solid fa-eye"></i> : {% get_hit_count for i %}</h4>
+            </div>
+        </div>
+    {% endfor %}
+
+
+
+{% endblock content %}

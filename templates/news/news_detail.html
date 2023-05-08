@@ -1,15 +1,109 @@
+<style>
+.comment{
+    width: 65vw;
+    height: auto;
+    border: 0.7px solid black;
+    padding: 20px;
+    border-radius: 30px;
+    margin: 30px;
+    position: relative;
+    left: 5vw;
+}
+.data p{
+    text-align: left;
+    font-size: 1.3vw;
+    font-weight: bolder;
+    color: #3f4242;
+    margin-bottom: 30px;
+}
+
+.body{
+    display: flex;
+    justify-content: space-between;
+}
+.user{
+    font-size: 1.5vw;
+    font-weight: 900;
+    position: relative;
+    bottom: -0.3vw;
+}
+
+
+#h3{
+    font-size: 1vw;
+}
+.hr{
+    width: 76vw;
+    margin: 10px;
+    height: 1px;
+    background-color: #2f2f2f;
+}
+span img{
+    object-fit: cover;
+    object-position: center center;
+}
+
+</style>
 {% extends 'news/base.html' %}
 {% load static %}
+{% load hitcount_tags %}
 {% block content %}
-    
-    <span class="detail" style="text-align: center">
-        <h1>{{ object.title }}</h1>
-        <img src="{{ object.image.url }}" alt=""style="margin-bottom: 50px; width: 100%">
-        <p style="font-family: sans-serif; font-size: 21px; font-weight: 600" >{{ object.body }}</p>
-        <div class="time_icon" style="display: flex; justify-content:center; margin-top: 40px; margin-bottom: 30px">
-            <i class="fa-solid fa-calendar-days fa-xl" style="position: relative; top: 19px; right: 15px; color: darkblue"></i>
-            <h4>:   {{ object.publish_time }}</h4>
+
+    <span class="detail" style="text-align: center; ">
+        <h1>{{ news.title }}</h1>
+        <img src="{{ news.image.url }}" alt="" style="margin-bottom: 50px; width: 100%">
+        <p style="font-family: sans-serif; font-size: 21px; font-weight: 600" >{{ news.body }}</p>
+        <div class="time_icon" style="display: flex; justify-content:space-around; margin-top: 40px; margin-bottom: 30px">
+            <h4> <i class="fa-solid fa-calendar-days fa-xl"></i> : {{ news.publish_time }} </h4>
+            <h4><i class="fa-sharp fa-solid fa-eye"></i> : {% get_hit_count for news %}</h4>
+            <h4><i class="fa-solid fa-comment-dots"></i> : {{ comment_count }}</h4>
         </div>
+        {% if request.user.is_authenticated and request.user.is_superuser %}
+            <div style="text-align: center">
+            <a class="btn btn-green" href="{% url 'edit' news.id %}">Tahrirlash</a>
+            <a class="btn btn-blue" href="{% url 'delete' news.id %}">O'chirish</a>
+        </div>
+        {% endif %}
+        <div class="hr"></div>
+
+    {% for comment in comments %}
+
+         <div class="comment">
+            <div class="data">
+                <p>{{ comment.body|truncatewords:30 }}</p>
+            </div>
+            <div class="body">
+                <span>
+                    <a><i class="fa-sharp fa-solid fa-user-secret fa-2xl"></i> : <a class="user">{{ comment.user }}</a></a>
+                </span>
+                <h3 id="h3">Yozilgan vaqti: {{ comment.created_time }}</h3>
+            </div>
+        </div>
+    {% endfor %}
+
+        {% if user.is_authenticated %}
+            <div>
+                <h3>Commentariya qoldirishni xoxlasangiz, Pastdagi formani to'ldirirng</h3>
+                <form method="POST">{% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" class="btn btn-primary">Yuborish</button>
+                </form>
+            </div>
+
+        {% else %}
+         <h3>Agar sytda accountingiz bo'lmasa izoh qoldira olmaysiz. Ro'yxatdan o'tishingiz yoki accountingiz bo'lsa kirish orqali kiring</h3>
+        <a href="{% url 'login' %}">Kirish uchun</a>
+        <a href="{% url 'signup' %}">Ro'yxatdan o'tish uchun</a>
+        {% endif %}
+
+
+
+
+
+
+
+
+
    </span>
-    
+
 {% endblock content %}

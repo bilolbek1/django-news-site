@@ -1,0 +1,13 @@
+{% extends 'news/base.html' %}
+{% block content %}
+
+    <div style="text-align: center">
+        <h1>Yangilik Qo'shish</h1>
+        <form method="post" enctype="multipart/form-data">{% csrf_token %}
+            {{ form.as_p }}
+        <button type="submit" class="btn btn-blue" value="Bajarish">Qo'shish</button>
+        </form>
+    </div>
+
+
+{% endblock content %}

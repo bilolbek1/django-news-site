@@ -1,4 +1,5 @@
 {% load static %}
+{% load hitcount_tags %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,9 +16,18 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.fancybox.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/theme.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src=" {% static 'js/html5shiv.min.js' %}"></script>
 <script src="{% static 'js/respond.min.js' %}"></script>
+<style>
+
+#idello{
+    height: 50px;
+    width: 441px;
+}
+
+</style>
 
 <![endif]-->
 </head>
@@ -39,7 +49,15 @@
                 </ul>
               </div>
               <div class="header_top_right">
-                <p>Friday, December 05, 2045</p>
+                  {% if request.user.is_authenticated %}
+                  <p><a style="color: yellowgreen" href="{% url 'user_profile' %}">Your account</a></p>
+                  <p><a style="color: royalblue" href="{% url 'logout' %}">Chiqish</a></p>
+                  {% else %}
+                  <p><a style="color: yellowgreen" href="{% url 'login' %}">Kirish</a></p>
+                  <p><a style="color: white" href="{% url 'signup' %}">Ro'yxatdan O'tish</a></p>
+                  <p><a style="color: royalblue" href="{% url 'logout' %}">Chiqish</a></p>
+                  {% endif %}
+                <p>{{ now }}</p>
               </div>
             </div>
           </div>
@@ -64,7 +82,14 @@
               <li><a href="{% url 'mahalliy_news' %}">MAHALLIY</a></li>
               <li><a href="{% url 'xorij_news' %}">XORIJIY</a></li>
               <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                {% if request.user.is_authenticated and request.user.is_superuser %}
+              <li><a href="{% url 'admin-page' %}">Admin-Page</a></li>
+                {% endif %}
               <li><a href="{% url '404' %}">404 Page</a></li>
+              <li><form method="get" action="{% url 'search_results' %}">
+                    <input type="search" name="q" placeholder="Qidiruv" id="idello" class="form-control">
+              </form></li>
+
             </ul>
           </div>
         </nav>
@@ -110,14 +135,12 @@
               <div class="footer_widget wow fadeInDown">
                 <h2>Tag</h2>
                 <ul class="tag_nav">
-                  <li><a href="#">Games</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Fashion</a></li>
-                  <li><a href="#">Business</a></li>
-                  <li><a href="#">Life &amp; Style</a></li>
-                  <li><a href="#">Technology</a></li>
-                  <li><a href="#">Photo</a></li>
-                  <li><a href="#">Slider</a></li>
+                    <li><a href="{% url 'siyosat_news' %}">SIOSIY</a></li>
+                      <li><a href="{% url 'sport_news' %}">SPORT</a></li>
+                      <li><a href="{% url 'mahalliy_news' %}">MAHALLIY</a></li>
+                      <li><a href="{% url 'xorij_news' %}">XORIJIY</a></li>
+                      <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                      <li><a href="{% url '404' %}">404 Page</a></li>
                 </ul>
               </div>
             </div>

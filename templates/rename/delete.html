@@ -1,0 +1,14 @@
+{% extends 'news/base.html' %}
+{% block content %}
+
+    <div style="text-align: center">
+        <h1>Yangilikni o'chirish</h1>
+        <h3><a href="{% url 'news_detail' object.pk %}">{{ object.title|truncatewords:6 }}</a> <-- yangiliginini o'chirmoqchimisiz ?</h3>
+        <form method="post" enctype="multipart/form-data">{% csrf_token %}
+            {{ form.as_p }}
+        <button type="submit" class="btn btn-red" value="Bajarish">O'chirish</button>
+        </form>
+    </div>
+
+
+{% endblock content %}
