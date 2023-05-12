@@ -7,6 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" type="image/x-icon" href="https://media.wired.co.uk/photos/606d9a5b751ea43ccd988507/16:9/w_2992,h_1683,c_limit/bbc-netflix.jpg" />
 <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
@@ -100,7 +101,7 @@
             <div class="latest_newsarea"> <span>So'ngi yangiliklar</span>
               <ul id="ticker01" class="news_sticker">
                   {% for last in last_news %}
-                <li><a href="{% url 'news_detail' last.pk %}"><img src="{{ last.image.url }}" alt="">{{ last.title|truncatewords:5 }}</a></li>
+                <li><a href="{% url 'news_detail' last.pk %}"><img src="{{ last.image }}" alt="">{{ last.title|truncatewords:5 }}</a></li>
                   {% endfor %}
               </ul>
               <div class="social_area">

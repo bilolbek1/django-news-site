@@ -39,7 +39,7 @@ class NewsAllView(ListView):
     template_name = 'news/news.html'
 
 def NewsDetailView(request, id):
-    news = get_object_or_404(News, id=id, status=News.Status.Published)
+    news = News.objects.get(id=id)
     context = {}
     # HITCOUNT COUNT VIEW LOGIC
     hit_count = get_hitcount_model().objects.get_for_object(news)
