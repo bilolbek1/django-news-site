@@ -27,7 +27,16 @@
     height: 50px;
     width: 441px;
 }
-
+.n-btn{
+    width: 180px;
+    height: 60px;
+    margin-right: 2vw;
+    background-color: #4e4545;
+    border: none;
+    font-size: 1.3vw;
+    color: white;
+}
+.n-btn:hover{}
 </style>
 
 <![endif]-->
@@ -51,14 +60,23 @@
               </div>
               <div class="header_top_right">
                   {% if request.user.is_authenticated %}
-                  <p><a style="color: yellowgreen" href="{% url 'user_profile' %}">Your account</a></p>
-                  <p><a style="color: royalblue" href="{% url 'logout' %}">Chiqish</a></p>
+                  <div class="header_top_right" style="margin-left: 20vw">
+                    <ul class="top_nav">
+                      <li><a href="{% url 'logout' %}">Chiqish</a></li>
+                      <li><a href="{% url 'user_profile' %}">Sizning accountingiz </a></li>
+                    </ul>
+                  </div>
+{#                  <p><a style="color: yellowgreen" href="{% url 'user_profile' %}">Your account</a></p>#}
+{#                  <button class="n-btn"><a style="color: royalblue" href="{% url 'logout' %}">Chiqish</a></button>#}
                   {% else %}
-                  <p><a style="color: yellowgreen" href="{% url 'login' %}">Kirish</a></p>
-                  <p><a style="color: white" href="{% url 'signup' %}">Ro'yxatdan O'tish</a></p>
-                  <p><a style="color: royalblue" href="{% url 'logout' %}">Chiqish</a></p>
+                  <div class="header_top_left" style="margin-left: 20vw">
+                      <ul class="top_nav">
+                      <li><a href="{% url 'login' %}">Kirish</a></li>
+                      <li><a href="{% url 'signup' %}">Ro'yxatdan o'tish</a></li>
+                      </ul>
+                  </div>
                   {% endif %}
-                <p>{{ now }}</p>
+
               </div>
             </div>
           </div>
@@ -101,7 +119,7 @@
             <div class="latest_newsarea"> <span>So'ngi yangiliklar</span>
               <ul id="ticker01" class="news_sticker">
                   {% for last in last_news %}
-                <li><a href="{% url 'news_detail' last.pk %}"><img src="{{ last.image }}" alt="">{{ last.title|truncatewords:5 }}</a></li>
+                <li><a href="{% url 'news_detail' last.pk %}"><img src="{{ last.image.url }}" alt="">{{ last.title|truncatewords:5 }}</a></li>
                   {% endfor %}
               </ul>
               <div class="social_area">
@@ -171,4 +189,3 @@
     <script src="{% static 'js/jquery.fancybox.pack.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
     </body>
-</html>

@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import NewsAllView, NewsDetailView, HomePageView, ContactPageView, P4PPageView
 from .views import SportNewsView, SiyosatNewsView, MahalliyNewsView, XorijNewsView
-from .views import NewsUpdateView, NewsDeleteView, NewsCreateView, AdminPageView,SearchView
+from .views import NewsUpdateView, NewsDeleteView, NewsCreateView, AdminPageView,SearchView, CommentView
 
 urlpatterns = [
     path('news/', NewsAllView.as_view(), name='news'),
@@ -18,4 +18,5 @@ urlpatterns = [
     path('news/create/', NewsCreateView.as_view(), name='create'),
     path('admin-page/', AdminPageView, name='admin-page'),
     path('search-results/', SearchView.as_view(), name='search_results'),
+    path('<int:id>/comment/', CommentView.as_view(), name='comment')
 ]

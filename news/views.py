@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy, reverse
+from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from hitcount.utils import get_hitcount_model
-
+from django.contrib.auth.models import AbstractUser
 from .form import ContactForm, CommentForm
 from django.http import HttpResponse
 from .models import News, Category
@@ -52,28 +53,32 @@ def NewsDetailView(request, id):
         hitcontext['hitmassage'] = hit_count_response.hit_message
         hitcontext['total_hits'] = hits
     # END COUNT VIEW IS HITCOUNT LOGIC
-    comments = news.comments.filter(active=True)
-    comment_count = comments.count()
-    new_comment = None
-    if request.method == 'POST':
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            new_comment = comment_form.save(commit=False)
-            new_comment.news = news
-            new_comment.user = request.user
-            new_comment.save()
-            comment_form = CommentForm()
-
-    else:
-        comment_form = CommentForm()
+    comment = CommentForm()
     context = {
         'news': news,
-        'comments': comments,
-        'new_comment': new_comment,
-        'comment_form': comment_form,
-        'comment_count': comment_count,
+        'comment': comment
     }
     return render(request, 'news/news_detail.html', context)
+
+
+class CommentView(View):
+    def post(self, request, id):
+        news = News.objects.get(id=id)
+        user = request.user
+        comment = CommentForm(data=request.POST)
+        if comment.is_valid():
+            Comment.objects.create(
+                news=news,
+                user=user,
+                body=comment.cleaned_data['body']
+            )
+            return redirect(reverse('news_detail', kwargs={'id': news.id}))
+        else:
+            context = {
+                'news': news,
+                'user': user
+            }
+            return render(request, 'news/news_detail.html', context)
 
 
 

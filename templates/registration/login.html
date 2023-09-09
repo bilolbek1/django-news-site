@@ -1,13 +1,81 @@
 {% extends 'news/base.html' %}
-
+{% load static %}
 {% block title %} Login {% endblock title %}
 
 {% block content %}
 
-    <h1>Kirish uchun pastdagilarni to'ldiring</h1>
-    <form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Kirish</button>
+<style>
+.www{
+    width: 40vw;
+    height: 35vw;
+    margin-left: 20vw;
+    padding: 20px;
+    background-color: #D4E2D4;
+    border-radius: 20px;
+    box-shadow: 0 0 10px black;
+    margin-top: 25vw;
+    margin-bottom: 5vw;
+}
+label{
+    color: black ;
+    display: block;
+    font-family: sans-serif;
+    font-weight: 600;
+    margin-bottom: 0.5vw;
+}
+body{
+    margin-bottom: 50px;
+}
+
+h1{
+    text-align: center;
+    color: teal;
+    font-family: "Digital-7 Mono", monospace;
+    margin-bottom: 2vw;
+}
+
+input{
+    outline: teal;
+    width: 100%;
+    height: 3.2vw;
+    border-radius:20px ;
+    margin-bottom: 0.7vw;
+    border: none;
+    padding-left: 1vw;
+}
+
+p{
+    font-family: sans-serif;
+    color: #9c9191;
+    margin-top: 1vw;
+}
+button{
+    width: 160px;
+    height: 50px;
+    text-align: center;
+    margin-left: 14vw;
+    border: none;
+    border-radius: 30px;
+    background-color: teal;
+    color: white;
+}
+
+button:hover{
+    background: white;
+    color: teal;
+    transition: 0.4s all ease-in-out;
+}
+
+</style>
+
+
+
+    <form class="www" method="post">{% csrf_token %}
+        <div>
+            <h1 class="hhh">Kirish uchun pastdagilarni to'ldiring</h1>
+            {{ form.as_p }}
+            <button class="bbb" type="submit">Kirish</button>
+        </div>
     </form>
 
 {% endblock content %}
