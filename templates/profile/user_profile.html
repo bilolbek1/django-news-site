@@ -2,30 +2,81 @@
 {% load static %}
 
 {% block content %}
-    <h1 style="text-align: center">Sizning profilingiz</h1>
+<style>
+.profile{
+    {#margin-left: 3vw;#}
+    margin-top: 4vw;
+    margin-bottom: 2vw;
+    width: 77vw;
+    height: 40vw;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    {#border-radius: 30px ;#}
+    background-color: rgb(0, 0, 0);
+}
+.image-con img{
+    width: 20vw;
+    height: 20vw;
+    background-size: cover;
+    object-fit: cover;
+    text-align: center;
+    margin-left: 28vw;
+    margin-top: 1vw;
+}
+.data{
+    text-align: center;
+    padding-top: 1vw;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.username{
+    font-size: 1.5vw;
+    color: rgb(241, 120, 59);
+}
 
+.first-name{
+    font-size: 1.4vw;
+    color: rgb(91, 130, 198);
+}
+.last-name{
+    font-size: 1.4vw;
+    color: rgb(169, 86, 246);
+}
+.email{
+    font-size: 1.3vw;
+    color: rgb(63, 232, 72);
+}
+.bio{
+    font-size: 1.1vw;
+    color: rgb(0, 255, 191);
+}
+p i{
+    color: wheat;
+}
 
-      <div id="div">
-        <img id="img" src="{{ profile.photo }}" alt="">
-        <div class="about">
-            <h1><label style="margin-top: 15px">Username: </label><input value="{{ user.username }}" readonly placeholder="kiritilmagan"></h1>
-            <h1><label style="margin-top: 15px">First-Name: </label><input value="{{ user.first_name }}" readonly placeholder="kiritilmagan"></h1>
-            <h1><label style="margin-top: 15px">Last-Name: </label><input value="{{user.last_name }}" readonly placeholder="kiritilmagan"></h1>
-            <h1><label style="margin-top: 15px">Email: </label><input value="{{ user.email }}" readonly placeholder="kiritilmagan"></h1>
-            <h3><a href="{% url 'profile_edit' %}">Profilni o'zgartirish</a></h3>
+</style>
 
+<div class="profile">
+        <div class="image-con">
+            {% if user.profile.photo %}
+            <img src="{{ user.profile.photo.url }}" alt="">
+            {% else %}
+            <img src="/users_img/default_profile_pic.png" alt="">
+            {% endif %}
         </div>
-      </div>
 
-
-    <span style="display: flex; justify-content: space-around">
-        <h3><a href="{% url 'logout' %}">LogOut</a></h3>
-        <h3><a href="{% url 'password-change' %}">Parolni o'zgartirish</a></h3>
-        <h3><a href="{% url 'password-reset' %}">Parolni qayta tiklash</a></h3>
-    </span>
-
-
-
+        <div class="data">
+            <p class="username"><i>Username:</i> {{ user.username }}</p>
+            <p class="first-name"><i>First name:</i> {{ user.first_name }}</p>
+            <p class="last-name"><i>Last name:</i> {{ user.last_name }}</p>
+            <p class="email"><i>Email:</i> {{ user.email }}</p>
+            <p class="bio"><i>Last login:</i> {{ user.last_login }}</p>
+            <div class="link">
+                <a href="{% url 'logout' %}"><button  class="btn btn-success" >LogOut</button></a>
+                <a href="{% url 'profile_edit' %}"><button class="btn btn-warning">Profile edit</button></a>
+            </div>
+        </div>
+    </div>
 
 
 
