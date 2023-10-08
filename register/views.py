@@ -22,11 +22,6 @@ def UserProfileView(request):
 
 
 
-# class SignUpView(CreateView):
-#     form_class = UserCreationForm
-#     success_url = reverse_lazy('login')
-#     template_name = 'registration/signup.html'
-
 def SignUpView(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
