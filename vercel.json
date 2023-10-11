@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "/manage.py",
+      "src": "manage.py",
       "use": "@vercel/python"
     }
   ],
