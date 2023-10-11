@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=True)
+DEBUG = config('DEBUG', default=False)
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,7 +27,7 @@ DEBUG = config('DEBUG', default=True)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
