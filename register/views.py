@@ -22,24 +22,27 @@ def UserProfileView(request):
 
 
 
-def SignUpView(request):
-    if request.method == 'POST':
-        user_form = UserRegistrationForm(request.POST)
-        if user_form.is_valid():
-            new_user = user_form.save(commit=False)
-            new_user.set_password(user_form.cleaned_data['password'])
-            new_user.save()
-            Profile.objects.create(user=new_user)
-            context = {
-                'new_user': new_user
-            }
-            return render(request, 'registration/signup_done.html', context)
-    else:
+class SignUpView(View):
+    def get(self, request):
         user_form = UserRegistrationForm()
         context = {
-            'user_form': user_form
+            "user_form": user_form
         }
-        return render(request, 'registration/signup.html', context)
+        return render(request, "registration/signup.html", context)
+
+    def post(self, request):
+        user_form = UserRegistrationForm(data=request.POST)
+
+        if user_form.is_valid():
+            user_form.save()
+
+            return redirect('login')
+
+        else:
+            context = {
+                'user_form': user_form
+            }
+            return render(request, 'registration/signup.html', context)
 
 @login_required
 def User_Edit(request):

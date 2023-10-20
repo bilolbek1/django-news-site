@@ -13,6 +13,13 @@ class UserRegistrationForm(forms.ModelForm):
     password2 = forms.CharField(max_length=16, label='Parolni qayta kiriting',
                                 widget=forms.PasswordInput)
 
+    def save(self, commit=True):
+        user = super().save(commit)
+        user.set_password(self.cleaned_data['password'])
+        user.save()
+
+        return user
+
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name','email']
