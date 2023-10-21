@@ -66,3 +66,24 @@ def User_Edit(request):
 
 
 
+# class User_Edit(View):
+#     def get(self):
+#         user_form = UserEditForm(instance=request.user)
+#         profile_form = ProfileEditForm(instance=request.user.profile)
+#
+#         context = {
+#               'user_form': user_form,
+#               'profile_form': profile_form
+#         }
+#         return render(request, 'profile/edit_profile.html', context)
+#
+#     def post(self):
+#         user_form = UserEditForm(instance=request.user, data=request.POST)
+#         profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST,
+#                                                files=request.FILES)
+#         if profile_form.is_valid() and user_form.is_valid():
+#             user_form.save()
+#             profile_form.save()
+#             return redirect('user_profile')
+
+
